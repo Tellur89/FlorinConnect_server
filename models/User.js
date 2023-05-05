@@ -13,7 +13,7 @@ class User {
 		if (response.rows.length < 1) {
 			throw new Error('No users in database.');
 		}
-		return response.rows.map((p) => new Post(p));
+		return response.rows.map((p) => new User(p));
 	}
 
 	static async getOneById(id) {
@@ -36,10 +36,12 @@ class User {
 
 	static async getAdmin() {
 		const response = await db.query('SELECT * FROM users WHERE admin = true;');
+
 		if (response.rows.length != 1) {
 			throw new Error('Unable to locate user by admin status.');
 		}
-		return new User(response.rows);
+		// console.log(User(response.rows));
+		return response.rows;
 	}
 
 	static async create(data) {
@@ -50,9 +52,9 @@ class User {
 		return newUser;
 	}
 
-	static async update(data) {
-		const { admin } = data;
-		const response = await db.query('UPDATE users SET admin = $1 WHERE users_id = $2;', [admin, id]);
+	async update(data) {
+		// const { admin } = data;
+		const response = await db.query('UPDATE users SET admin = $1 WHERE user_id = $2 RETURNING *;', [data, this.id]);
 
 		if (response.rows.length != 1) {
 			throw new Error('Unable to update the user');
@@ -60,9 +62,12 @@ class User {
 		return new User(response.rows[0]);
 	}
 
-	static async destroy() {
-		const response = await db.query('DELETE FROM users WHERE username = $1', [this.username]);
+	async destroy() {
+		const response = await db.query('DELETE FROM users WHERE username = $1 RETURNING *', [this.username]);
 
+		if (response.rows.length != 1) {
+			throw new Error('Unable to delete the user');
+		}
 		return new User(response.rows[0]);
 	}
 }

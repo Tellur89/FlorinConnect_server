@@ -52,7 +52,7 @@ async function createUser(req, res) {
 async function updateUser(req, res) {
 	try {
 		const id = parseInt(req.params.id);
-		const data = req.body;
+		const data = req.body.admin;
 		const user = await User.getOneById(id);
 		const updatedUser = await user.update(data);
 		res.status(200).json(updatedUser);
@@ -65,8 +65,9 @@ async function destroyUser(req, res) {
 	try {
 		const username = req.params.username;
 		const user = await User.getOneByUsername(username);
-		const deletedUser = await user.destroy();
-		res.status(200).json(deletedUser);
+		console.log(user);
+		const result = await user.destroy();
+		res.status(204).json(result);
 	} catch (error) {
 		res.status(404).json({ error: error.message });
 	}
