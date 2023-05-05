@@ -21,10 +21,10 @@ CREATE TABLE posts (
   content VARCHAR(500) NOT NULL,
   category VARCHAR(50) NOT NULL,
   date_created DATE NOT NULL,
-  open BOOLEAN DEFAULT false,
+  open BOOLEAN DEFAULT true,
   completed BOOLEAN DEFAULT false,
   accepted BOOLEAN DEFAULT false,
-  accepted_by_id INT DEFAULT 0 NOT NULL,
+  accepted_by_id INT DEFAULT 0,
   PRIMARY KEY (post_id),
   FOREIGN KEY (accepted_by_id) REFERENCES users(user_id) 
 );
