@@ -34,7 +34,7 @@ class Token {
   }
   //get token details from token value
   static async getOneByToken(token) {
-    const response = await db.query("SELECT * FROM token where token = $1", [
+    const response = await db.query("SELECT * FROM tokens where token = $1", [
       token,
     ]);
     if (response.rows.length != 1) {
@@ -46,7 +46,7 @@ class Token {
 
   //delete token details from token value
   static async delete(token) {
-    const response = await db.query("DELETE FROM token WHERE token = $1", [
+    const response = await db.query("DELETE FROM tokens WHERE token = $1", [
       token,
     ]);
     if (response.rows.length != 1) {
