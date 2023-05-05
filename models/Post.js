@@ -29,6 +29,41 @@ class Post{
         return new Post(response.rows[0]);
     }
 
+    static async showByCategory(type) {
+        const response = await db.query("SELECT * FROM posts WHERE category = $1 ORDER BY date_created;", [type]);
+        if (response.rows.length === 0) {
+            throw new Error("No posts available.")
+        }
+        return response.rows.map(p => new Post(p));
+    }
+
+    static async showByOpen() {
+        const response = await db.query("SELECT * FROM posts WHERE open = TRUE ORDER BY date_created;");
+
+        if (response.rows.length === 0) {
+            throw new Error("No open posts available.")
+        }
+        return response.rows.map(p => new Post(p));
+    }
+
+    static async showByCompleted() {
+        const response = await db.query("SELECT * FROM posts WHERE completed = TRUE ORDER BY date_created;");
+
+        if (response.rows.length === 0) {
+            throw new Error("No completed posts available.")
+        }
+        return response.rows.map(p => new Post(p));
+    }
+
+    static async showByAccepted() {
+        const response = await db.query("SELECT * FROM posts WHERE accepted = TRUE ORDER BY date_created;");
+
+        if (response.rows.length === 0) {
+            throw new Error("No accepted posts available.")
+        }
+        return response.rows.map(p => new Post(p));
+    }
+
     static async create(data) {
         const title = data.title;
         const content = data.content;

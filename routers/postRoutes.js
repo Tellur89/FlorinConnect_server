@@ -9,7 +9,10 @@ postRouters
     .post('/', postControllers.create);
 
 postRouters
-    //.use('/search/', postSearchRouter)
+    .get('/search/category/:type', postControllers.getByCategory)
+    .get('/search/status/open', postControllers.getByOpen)
+    .get('/search/status/accepted', postControllers.getByAccepted)
+    .get('/search/status/completed', postControllers.getByCompleted)
     .get('/:id', postControllers.show);
     
 
