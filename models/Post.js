@@ -1,7 +1,7 @@
-const db = require ('../database/connect');
+const db = require ('../database/db');
 
 class Post{
-    constructor({post_id, title, content, category, date_created, open, completed, accepted, date_created, accepted_by_id}) {
+    constructor({post_id, title, content, category, date_created, open, completed, accepted, accepted_by_id}) {
         this.id = post_id;
         this.title = title;
         this.content = content;
