@@ -38,7 +38,7 @@ class Post {
 	}
 
 	// Show by Date
-	static async getByDate(date) {
+	static async showByDate(date) {
 		const response = await db.query('SELECT * FROM posts WHERE date_created = $1;', [date]);
 		if (response.rows.length < 1) {
 			throw new Error('No posts found for the given date.');
@@ -47,7 +47,7 @@ class Post {
 	}
 
 	//Show between dates
-	static async getBetweenDates(startDate, endDate) {
+	static async showBetweenDates(startDate, endDate) {
 		const response = await db.query('SELECT * FROM posts WHERE date_created BETWEEN $1 AND $2;', [startDate, endDate]);
 		if (response.rows.length < 1) {
 			throw new Error('No posts found between the given dates.');
