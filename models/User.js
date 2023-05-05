@@ -8,6 +8,14 @@ class User {
 		this.admin = admin;
 	}
 
+	static async getAll() {
+		const response = await db.query('SELECT * FROM users');
+		if (response.rows.length < 1) {
+			throw new Error('No users in database.');
+		}
+		return response.rows.map((p) => new Post(p));
+	}
+
 	static async getOneById(id) {
 		const response = await db.query('SELECT * FROM users WHERE user_id = $1', [id]);
 
@@ -28,9 +36,8 @@ class User {
 
 	static async getAdmin() {
 		const response = await db.query('SELECT * FROM users WHERE admin = true;');
-
 		if (response.rows.length != 1) {
-			throw new Error('Unable to locate user by username.');
+			throw new Error('Unable to locate user by admin status.');
 		}
 		return new User(response.rows);
 	}
@@ -43,7 +50,7 @@ class User {
 		return newUser;
 	}
 
-	static async update(data, id) {
+	static async update(data) {
 		const { admin } = data;
 		const response = await db.query('UPDATE users SET admin = $1 WHERE users_id = $2;', [admin, id]);
 
@@ -54,10 +61,10 @@ class User {
 	}
 
 	static async destroy() {
-		const response = await db.query('DELETE FROM users WHERE user_id = $1', [this.id]);
+		const response = await db.query('DELETE FROM users WHERE username = $1', [this.username]);
 
 		return new User(response.rows[0]);
 	}
 }
 
-module.exports = Post;
+module.exports = User;
