@@ -1,6 +1,6 @@
 DROP TABLE IF EXISTS posts;
-DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS tokens;
+DROP TABLE IF EXISTS users;
 
 CREATE TABLE users (
   user_id INT GENERATED ALWAYS AS IDENTITY,
@@ -24,7 +24,7 @@ CREATE TABLE posts (
   open BOOLEAN DEFAULT true,
   completed BOOLEAN DEFAULT false,
   accepted BOOLEAN DEFAULT false,
-  accepted_by_id INT DEFAULT 0,
+  accepted_by_id INT,
   PRIMARY KEY (post_id),
   FOREIGN KEY (accepted_by_id) REFERENCES users(user_id) 
 );

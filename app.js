@@ -8,11 +8,10 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-app.use('/posts', postRouters)
+app.use('/posts', postRouters);
 
-app.get("/", (req, res) => {
-    res.json("Florin Connect Api")
-})
+app.get('/', (req, res) => {
+	res.json('Florin Connect Api');
+});
 
 module.exports = app;
-
