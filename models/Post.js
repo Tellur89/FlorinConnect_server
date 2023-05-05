@@ -34,10 +34,12 @@ class Post{
         const content = data.content;
         const category = data.category;
            
-        const response = await db.query("INSERT INTO posts (title, content, category, date_created) VALUES ($1,$2,$3,NOW());",[title, content, category]);
+        const response = await db.query("INSERT INTO posts (title, content, category, date_created) VALUES ($1,$2,$3,NOW()) RETURNING *;",[title, content, category]);
+
         const postId = response.rows[0].post_id;
         const newPost = await Post.getOneById(postId);
         return newPost;
+        
     }
 }
 
