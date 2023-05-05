@@ -1,15 +1,16 @@
 const db = require ('../database/connect');
 
 class Post{
-    constructor({post_id, category, title, task, open, accepted, closed, date_created}) {
+    constructor({post_id, title, content, category, date_created, open, completed, accepted, date_created, accepted_by_id}) {
         this.id = post_id;
-        this.category = category;
         this.title = title;
-        this.task = task;
-        this.open = open;
-        this.accepted = accepted;
-        this.closed = closed;
+        this.content = content;
+        this.category = category;
         this.date_created = date_created;
+        this.open = open;
+        this.completed = completed;
+        this.accepted = accepted;
+        this.accepted_by_id = accepted_by_id;
     }
 
     static async getAll() {
