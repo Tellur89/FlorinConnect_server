@@ -1,12 +1,13 @@
 const db = require('../database/db');
 
 class Post {
-	constructor({ post_id, title, content, category, date_created, open, completed, accepted, accepted_by_id }) {
+	constructor({ post_id, title, content, category, date_created, image_url, open, completed, accepted, accepted_by_id }) {
 		this.id = post_id;
 		this.title = title;
 		this.content = content;
 		this.category = category;
 		this.date_created = new Date(date_created).toLocaleDateString('en-GB', { timeZone: 'Europe/London' });
+		this.image_url = image_url;
 		this.open = open;
 		this.completed = completed;
 		this.accepted = accepted;

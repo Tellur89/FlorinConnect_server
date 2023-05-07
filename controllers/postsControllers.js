@@ -33,7 +33,6 @@ async function getByCategory(req, res) {
 async function getByDate(req, res) {
 	try {
 		const { date } = req.params;
-		console.log(date);
 		const posts = await Post.showByDate(date);
 		res.status(200).json(posts);
 	} catch (error) {
