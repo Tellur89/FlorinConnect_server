@@ -32,7 +32,8 @@ async function getByCategory(req, res) {
 //Get by date
 async function getByDate(req, res) {
 	try {
-		const date = req.params.date;
+		const { date } = req.params;
+		console.log(date);
 		const posts = await Post.showByDate(date);
 		res.status(200).json(posts);
 	} catch (error) {
@@ -43,7 +44,7 @@ async function getByDate(req, res) {
 //Get between dates - query needs to be send from client form
 async function getBetweenDates(req, res) {
 	try {
-		const { startDate, endDate } = req.query;
+		const { startDate, endDate } = req.params;
 		const posts = await Post.showBetweenDates(startDate, endDate);
 		res.status(200).json(posts);
 	} catch (error) {
@@ -81,6 +82,12 @@ async function getByCompleted(req, res) {
 async function create(req, res) {
 	try {
 		const post = await Post.create(req.body);
+		post.date_created = new Date(post.date_created).toLocaleDateString('en-GB', {
+			timeZone: 'Europe/London',
+			day: '2-digit',
+			month: '2-digit',
+			year: 'numeric',
+		});
 		res.status(201).json(post);
 	} catch (err) {
 		res.status(404).json({ error: err.message });

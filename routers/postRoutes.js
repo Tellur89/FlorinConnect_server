@@ -12,7 +12,7 @@ postRouters
 	.get('/status/accepted', postControllers.getByAccepted)
 	.get('/status/completed', postControllers.getByCompleted)
 	.get('/date/:date', postControllers.getByDate)
-	.get('/date/search', postControllers.getBetweenDates);
+	.get('/date/:startDate/:endDate', postControllers.getBetweenDates);
 
 postRouters.route('/:id').get(postControllers.show).patch(postControllers.update).delete(postControllers.destroy);
 

@@ -33,7 +33,7 @@ CREATE TABLE posts (
   FOREIGN KEY (added_by) REFERENCES users(user_id) 
 );
 
-INSERT INTO posts (title, content, category, date_created, accepted_by_id) VALUES ('Library Assistant Needed', 'Florin County Council is seeking a Library Assistant volunteer to help with staffing and organization of our local library. The ideal candidate will have a passion for books and community service.','Volunteer' , NOW(), 2);
+INSERT INTO posts (title, content, category, date_created, accepted_by_id) VALUES ('Library Assistant Needed', 'Florin County Council is seeking a Library Assistant volunteer to help with staffing and organization of our local library. The ideal candidate will have a passion for books and community service.','Volunteer' ,NOW(), 2);
 
 CREATE TABLE tokens (
   token_id INT GENERATED ALWAYS AS IDENTITY,

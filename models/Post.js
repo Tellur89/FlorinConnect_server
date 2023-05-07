@@ -6,7 +6,7 @@ class Post {
 		this.title = title;
 		this.content = content;
 		this.category = category;
-		this.date_created = date_created;
+		this.date_created = new Date(date_created).toLocaleDateString('en-GB', { timeZone: 'Europe/London' });
 		this.open = open;
 		this.completed = completed;
 		this.accepted = accepted;
@@ -39,7 +39,7 @@ class Post {
 
 	// Show by Date
 	static async showByDate(date) {
-		const response = await db.query('SELECT * FROM posts WHERE date_created = $1;', [date]);
+		const response = await db.query('SELECT * FROM posts WHERE date_created::date = $1::date;', [date]);
 		if (response.rows.length < 1) {
 			throw new Error('No posts found for the given date.');
 		}
@@ -48,8 +48,8 @@ class Post {
 
 	//Show between dates
 	static async showBetweenDates(startDate, endDate) {
-		const response = await db.query('SELECT * FROM posts WHERE date_created BETWEEN $1 AND $2;', [startDate, endDate]);
-		if (response.rows.length < 1) {
+		const response = await db.query('SELECT * FROM posts WHERE date_created BETWEEN $1::date AND $2::date ORDER BY date_created;', [startDate, endDate]);
+		if (response.rows.length === 0) {
 			throw new Error('No posts found between the given dates.');
 		}
 		return response.rows.map((p) => new Post(p));
@@ -86,11 +86,15 @@ class Post {
 		const title = data.title;
 		const content = data.content;
 		const category = data.category;
+		const now = new Date();
+		const options = { timeZone: 'Europe/London' };
+		const date_created = now.toLocaleDateString('en-GB', options);
 
-		const response = await db.query('INSERT INTO posts (title, content, category, date_created) VALUES ($1,$2,$3,NOW()) RETURNING *;', [
+		const response = await db.query('INSERT INTO posts (title, content, category, date_created) VALUES ($1,$2,$3,$4) RETURNING *;', [
 			title,
 			content,
 			category,
+			date_created,
 		]);
 
 		const postId = response.rows[0].post_id;
