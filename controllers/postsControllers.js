@@ -51,6 +51,19 @@ async function getBetweenDates(req, res) {
 	}
 }
 
+//Get by word
+async function getByWord(req, res) {
+	try {
+		const { word } = req.params;
+		console.log(word);
+		const posts = await Post.showByWord(word);
+		console.log(posts);
+		res.status(200).json(posts);
+	} catch (error) {
+		res.status(404).json({ error: error.message });
+	}
+}
+
 async function getByOpen(req, res) {
 	try {
 		const posts = await Post.showByOpen();
@@ -135,4 +148,5 @@ module.exports = {
 	destroy,
 	getBetweenDates,
 	getByDate,
+	getByWord,
 };

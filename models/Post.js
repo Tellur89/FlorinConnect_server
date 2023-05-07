@@ -56,6 +56,15 @@ class Post {
 		return response.rows.map((p) => new Post(p));
 	}
 
+	//Show by keyword
+	static async showByWord(word) {
+		const response = await db.query('SELECT * FROM posts WHERE content LIKE $1 OR title like $1;', ['%' + word + '%']);
+		if (response.rows.length === 0) {
+			throw new Error('No posts found by the given word');
+		}
+		return response.rows.map((p) => new Post(p));
+	}
+
 	static async showByOpen() {
 		const response = await db.query('SELECT * FROM posts WHERE open = TRUE ORDER BY date_created;');
 
