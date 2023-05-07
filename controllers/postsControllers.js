@@ -22,6 +22,7 @@ async function show(req, res) {
 async function getByCategory(req, res) {
 	try {
 		const type = req.params.type;
+		console.log(type);
 		const posts = await Post.showByCategory(type);
 		res.status(200).json(posts);
 	} catch (err) {
@@ -55,9 +56,7 @@ async function getBetweenDates(req, res) {
 async function getByWord(req, res) {
 	try {
 		const { word } = req.params;
-
 		const posts = await Post.showByWord(word);
-
 		res.status(200).json(posts);
 	} catch (error) {
 		res.status(404).json({ error: error.message });
