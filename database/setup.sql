@@ -22,12 +22,15 @@ CREATE TABLE posts (
   content VARCHAR(500) NOT NULL,
   category VARCHAR(50) NOT NULL,
   date_created DATE NOT NULL,
+  added_by INT,
+  imageUrl VARCHAR(255),
   open BOOLEAN DEFAULT true,
   completed BOOLEAN DEFAULT false,
   accepted BOOLEAN DEFAULT false,
   accepted_by_id INT,
   PRIMARY KEY (post_id),
-  FOREIGN KEY (accepted_by_id) REFERENCES users(user_id) 
+  FOREIGN KEY (accepted_by_id) REFERENCES users(user_id), 
+  FOREIGN KEY (added_by) REFERENCES users(user_id) 
 );
 
 INSERT INTO posts (title, content, category, date_created, accepted_by_id) VALUES ('Library Assistant Needed', 'Florin County Council is seeking a Library Assistant volunteer to help with staffing and organization of our local library. The ideal candidate will have a passion for books and community service.','Volunteer' , NOW(), 2);
