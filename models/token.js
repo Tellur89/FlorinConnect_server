@@ -1,4 +1,5 @@
-const { v4: uuidv4 } = require("uuid");
+// const { v4: uuidv4 } = require('uuid');
+const jwt = require("jsonwebtoken");
 
 const db = require("../database/connect");
 
@@ -10,7 +11,8 @@ class Token {
   }
   // create tokens for each users
   static async create(user_id) {
-    const token = uuidv4();
+    // const token = uuidv4();
+    const token = jwt.sign({ userId: user_id }, process.env.JWT_SECRET);
     const response = await db.query(
       "INSERT INTO tokens (user_id, token) VALUES ($1, $2)",
       [user_id, token]
