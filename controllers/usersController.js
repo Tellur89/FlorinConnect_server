@@ -59,6 +59,16 @@ async function updateUser(req, res) {
     res.status(404).json({ error: error.message });
   }
 }
+async function verifyLogin(req, res) {
+  try {
+    const data = req.body;
+    console.log(data);
+    const login = await User.verifyLogin(data);
+    res.status(204).json(login);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+}
 
 async function destroyUser(req, res) {
   try {
@@ -80,4 +90,5 @@ module.exports = {
   createUser,
   updateUser,
   destroyUser,
+  verifyLogin,
 };

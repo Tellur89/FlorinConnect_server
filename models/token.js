@@ -79,6 +79,20 @@ class Token {
       return new Token(response.rows[0]);
     }
   }
+
+  static async verifyLogin(data) {
+    const { username, password } = data;
+
+    const response = await db.query(
+      "SELECT * FROM users WHERE username = $1 AND password = $2",
+      [username, password]
+    );
+    if (response.rows.length != 1) {
+      throw new Error("Unable to locate Token.");
+    } else {
+      return new Token(response.rows[0]);
+    }
+  }
 }
 
 module.exports = Token;

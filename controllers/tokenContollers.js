@@ -21,6 +21,7 @@ async function create(req, res) {
     res.status(400).json({ error: error.message });
   }
 }
+
 module.exports = {
   create,
   index,
