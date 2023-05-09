@@ -3,6 +3,8 @@ const tokenController = require("../controllers/tokenContollers");
 
 const tokenRouter = Router();
 
-tokenRouter.route("/:id").patch(tokenController.createToken);
+tokenRouter.route("/").get(tokenController.index);
+
+tokenRouter.route("/").post(tokenController.create);
 
 module.exports = tokenRouter;
