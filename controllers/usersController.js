@@ -1,4 +1,3 @@
-const { parse } = require('path');
 const User = require('../models/User');
 
 async function index(req, res) {
