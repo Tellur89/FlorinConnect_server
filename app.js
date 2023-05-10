@@ -11,16 +11,11 @@ const app = express();
 
 app.use(cors());
 app.use(express.json());
-app.use(cookieParser);
-
-app.use("/posts", postRouters);
+app.use(cookieParser());
 
 app.use("/tokens", tokenRoutes);
 app.use("/refresh", refreshRoutes);
-
-app.use(verifyJWT);
 app.use("/users", userRoutes);
-
 app.get("/", (req, res) => {
   res.cookie("cookieName", "cookieValue", {
     httpOnly: true,
@@ -29,5 +24,9 @@ app.get("/", (req, res) => {
   });
   res.json("Florin Connect Api");
 });
+//anything below this will need authorization
+app.use(verifyJWT);
+
+app.use("/posts", postRouters);
 
 module.exports = app;
