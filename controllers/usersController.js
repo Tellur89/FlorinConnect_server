@@ -1,4 +1,7 @@
+const jwt = require("jsonwebtoken");
+const { authenticator } = require("../middleware/authenticator");
 const User = require("../models/User");
+require("dotenv").config();
 
 async function index(req, res) {
   try {
@@ -30,12 +33,18 @@ async function showByUsername(req, res) {
 }
 
 async function showAdmin(req, res) {
-  try {
-    const data = await User.getAdmin();
-    res.status(200).json(data);
-  } catch (error) {
-    res.status(404).json({ error: error.message });
-  }
+  jwt.verify(req.token, process.env.JWT_SECRET, async function (err, data) {
+    if (err) {
+      res.status(403);
+    } else {
+      try {
+        const data = await User.getAdmin();
+        res.status(200).json(data);
+      } catch (error) {
+        res.status(404).json({ error: error.message });
+      }
+    }
+  });
 }
 
 async function createUser(req, res) {
@@ -62,9 +71,11 @@ async function updateUser(req, res) {
 async function verifyLogin(req, res) {
   try {
     const data = req.body;
-    console.log(data);
+    const userID = data["username"];
+
     const login = await User.verifyLogin(data);
-    res.status(204).json(login);
+    const registerToken = await User.getUserToken(userID);
+    res.status(200).json({ login: login, token: registerToken });
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
