@@ -13,7 +13,8 @@ postRouters
   .get("/status/completed", postControllers.getByCompleted)
   .get("/date/:date", postControllers.getByDate)
   .get("/date/:startDate/:endDate", postControllers.getBetweenDates)
-  .get("/word/:word", postControllers.getByWord);
+  .get("/word/:word", postControllers.getByWord)
+  .patch("/changestatus/:id", postControllers.changeStatus);
 
 postRouters
   .route("/:id")
