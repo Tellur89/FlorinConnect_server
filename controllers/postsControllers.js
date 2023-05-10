@@ -125,6 +125,38 @@ async function update(req, res) {
 	}
 }
 
+async function update(req, res) {
+	try {
+		const id = parseInt(req.params.id);
+		const data = await Post.getOneById(id);
+
+		data.title = req.body.title || data.title;
+		data.content = req.body.content || data.content;
+		data.category = req.body.category || data.category;
+		data.open = req.body.open || data.open;
+		data.accepted = req.body.accepted || data.accepted;
+		data.completed = req.body.completed || data.completed;
+		data.accepted_by_id = req.body.accepted_by_id || data.accepted_by_id;
+
+		const result = await Post.update(data);
+		res.status(200).json(result);
+	} catch (err) {
+		res.status(404).json({ error: err.message });
+	}
+}
+
+async function changeStatus(req, res) {
+	try {
+		const id = parseInt(req.params.id);
+
+		const result = await Post.updateStatus(id);
+		console.log(id)
+		res.json(result);
+	} catch (err) {
+		res.status(404).json({ error: err.message });
+	}
+}
+
 async function destroy(req, res) {
 	try {
 		const id = parseInt(req.params.id);
@@ -134,6 +166,8 @@ async function destroy(req, res) {
 		res.status(404).json({ error: err.message });
 	}
 }
+
+
 
 module.exports = {
 	index,
@@ -148,4 +182,5 @@ module.exports = {
 	getBetweenDates,
 	getByDate,
 	getByWord,
+	changeStatus
 };

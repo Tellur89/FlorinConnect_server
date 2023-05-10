@@ -20,28 +20,36 @@ class Token {
   }
 
   // create tokens for each users
-  static async create(username) {
+  static async create(user_id, token) {
     //get user id
-    const getUserID = await db.query(
-      "SELECT user_ID FROM users WHERE username = $1",
-      [username]
-    );
-    let selectedUserID = getUserID.rows[0];
-    //expires in 1 week
-    const token = jwt.sign(selectedUserID, process.env.JWT_SECRET, {
-      expiresIn: 604800,
-    });
+    // const getUserID = await db.query(
+    //   "SELECT user_ID FROM users WHERE username = $1",
+    //   [username]
+    // );
+    // let selectedUserID = getUserID.rows[0];
+    // //expires in 1 week
+    // const token = jwt.sign(selectedUserID, process.env.JWT_SECRET, {
+    //   expiresIn: 604800,
+    // });
+
+    // const response = await db.query(
+    //   "INSERT INTO tokens (user_id, token) VALUES ($1, $2)",
+    //   [selectedUserID["user_id"], token]
+    // );
+
+    // if (response.rows.length != 0) {
+    //   throw new Error("User ID does not exist.");
+    // } else {
+    //   return "Your token has been added";
+    // }
 
     const response = await db.query(
-      "INSERT INTO tokens (user_id, token) VALUES ($1, $2)",
-      [selectedUserID["user_id"], token]
+      "INSERT INTO tokens (user_id, token) VALUES ($1,$2)",
+      [user_id, token]
     );
-
-    if (response.rows.length != 0) {
-      throw new Error("User ID does not exist.");
-    } else {
-      return "Your token has been added";
-    }
+    const tokenId = response.rows[0].token_id;
+    const newToken = await Token.getOneById(tokenId);
+    return newToken;
   }
 
   //get token details from token id
@@ -66,6 +74,18 @@ class Token {
     } else {
       return new Token(response.rows[0]);
     }
+  }
+
+  //get the username if it matches
+  static async getUsername(id) {
+    const response = await db.query(
+      "SELECT users.username FROM tokens INNER JOIN users ON tokens.user_id = users.user_id where tokens.user_id = $1",
+      [id]
+    );
+    if (response.rows.length != 1) {
+      throw new Error("Unable to locate Token.");
+    }
+    return response.rows[0];
   }
 
   //delete token details from token value

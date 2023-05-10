@@ -1,18 +1,25 @@
 const express = require("express");
 const cors = require("cors");
-
+const cookieParser = require("cookie-parser");
+const verifyJWT = require("./middleware/authenticator");
 const postRouters = require("./routers/postsRoutes");
 const userRoutes = require("./routers/usersRoutes");
 const tokenRoutes = require("./routers/tokensRoutes");
+const refreshRoutes = require("./routers/refreshRoutes");
 
 const app = express();
 
 app.use(cors());
 app.use(express.json());
+app.use(cookieParser);
 
 app.use("/posts", postRouters);
-app.use("/users", userRoutes);
+
 app.use("/tokens", tokenRoutes);
+app.use("/refresh", refreshRoutes);
+
+app.use(verifyJWT);
+app.use("/users", userRoutes);
 
 app.get("/", (req, res) => {
   res.cookie("cookieName", "cookieValue", {
