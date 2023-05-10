@@ -33,13 +33,16 @@ async function showByUsername(req, res) {
 }
 
 async function showAdmin(req, res) {
-  jwt.verify(req.token, process.env.JWT_SECRET, async function (err, data) {
+  adminName = req.path.split("/")[1];
+  const token = await User.getUserToken(adminName);
+  // console.log(req.token);
+  jwt.verify(req.token, process.env.JWT_SECRET, async function (err, Data) {
     if (err) {
       res.status(403);
     } else {
       try {
         const data = await User.getAdmin();
-        res.status(200).json(data);
+        res.status(200).json({ data: data, Data: Data });
       } catch (error) {
         res.status(404).json({ error: error.message });
       }

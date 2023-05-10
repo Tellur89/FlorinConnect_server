@@ -4,7 +4,9 @@ const authenticator = require("../middleware/authenticator");
 const userRouter = Router();
 
 userRouter.route("/").get(userController.index).post(userController.createUser);
-userRouter.route("/admin", authenticator).get(userController.showAdmin);
+userRouter
+  .route("/admin", authenticator.verifyToken)
+  .get(userController.showAdmin);
 userRouter.route("/login").post(userController.verifyLogin);
 
 userRouter

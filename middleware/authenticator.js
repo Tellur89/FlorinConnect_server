@@ -57,10 +57,11 @@ const authenticator = async (req, res, next) => {
 };
 
 const verifyToken = async (req, res, next) => {
-  const bearerHeader = req.header["authorization"];
+  const bearerHeader = req.header["Authorization"];
   if (typeof bearerHeader !== "undefined") {
     const bearer = bearerHeader.split(" ");
     const bearerToken = bearer[1];
+    console.log(bearerToken);
     req.token = bearerToken;
     next();
   } else {
