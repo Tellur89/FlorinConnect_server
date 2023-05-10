@@ -68,6 +68,18 @@ class Token {
     }
   }
 
+  //get the username if it matches
+  static async getUsername(id) {
+    const response = await db.query(
+      "SELECT users.username FROM tokens INNER JOIN users ON tokens.user_id = users.user_id where tokens.user_id = $1",
+      [id]
+    );
+    if (response.rows.length != 1) {
+      throw new Error("Unable to locate Token.");
+    }
+    return response.rows[0];
+  }
+
   //delete token details from token value
   static async delete(token) {
     const response = await db.query("DELETE FROM tokens WHERE token = $1", [
