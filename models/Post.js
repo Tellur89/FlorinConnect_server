@@ -149,7 +149,8 @@ class Post {
 		if (response.rowCount != 1) {
 			throw new Error('Unable to change post.');
 		}
-		return new Post(response.rows[0]);
+		
+		return newPost;
 	}
 }
 
