@@ -76,14 +76,14 @@ class User {
       "SELECT tokens.user_id FROM tokens INNER JOIN users on tokens.user_id = users.user_id WHERE users.username = $1",
       [username]
     );
-
     let selectedUserID = getUserID.rows[0];
+
     const response = await db.query(
       "SELECT token from tokens WHERE user_id = $1",
       [selectedUserID["user_id"]]
     );
 
-    if (response.rows.length < 1 || getUserID.rows.length) {
+    if (response.rows.length < 1 || getUserID.rows.length < 1) {
       throw new Error("Unable to find the user");
     }
     return response.rows[0];

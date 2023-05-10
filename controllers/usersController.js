@@ -75,7 +75,7 @@ async function verifyLogin(req, res) {
 
     const login = await User.verifyLogin(data);
     const registerToken = await User.getUserToken(userID);
-    res.status(200).json({ token: registerToken });
+    res.status(200).json({ token: registerToken["token"] });
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
