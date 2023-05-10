@@ -58,7 +58,7 @@ class Post {
 
 	//Show by keyword
 	static async showByWord(word) {
-		const response = await db.query('SELECT * FROM posts WHERE content LIKE $1 OR title like $1;', ['%' + word + '%']);
+		const response = await db.query('SELECT * FROM posts WHERE LOWER (content) LIKE $1 OR LOWER (title) LIKE $1;', ['%' + word + '%']);
 		if (response.rows.length === 0) {
 			throw new Error('No posts found by the given word');
 		}
