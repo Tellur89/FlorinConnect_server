@@ -80,7 +80,8 @@ class Token {
       "SELECT users.username FROM tokens INNER JOIN users ON tokens.user_id = users.user_id where tokens.user_id = $1",
       [id]
     );
-    if (response.rows.length != 1) {
+
+    if (!response.rows[0]) {
       throw new Error("Unable to locate Token.");
     }
     return response.rows[0];

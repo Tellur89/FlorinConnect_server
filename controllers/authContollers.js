@@ -20,7 +20,6 @@ const handleLogin = async (req, res) => {
     );
 
     //save refresh tokens
-    console.log(userID.id);
     const insertRefreshToken = await Token.create(userID.id, refreshToken);
     if (insertRefreshToken) {
       console.log("inserted refresh token");
@@ -28,7 +27,7 @@ const handleLogin = async (req, res) => {
     res.cookie("jwt", refreshToken, {
       httpOnly: true,
       sameSite: "None",
-      secure: true,
+      secure: false,
       maxAge: 24 * 60 * 60 * 1000,
     });
     //store in memory
