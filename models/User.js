@@ -66,6 +66,7 @@ class User {
       "SELECT * FROM users WHERE username = $1 AND password = $2;",
       [username, password]
     );
+    // console.log(data);
     if (response.rows.length < 1) {
       throw new Error("Unable to find the user");
     }

@@ -47,9 +47,7 @@ class Token {
       "INSERT INTO tokens (user_id, token) VALUES ($1,$2)",
       [user_id, token]
     );
-    const tokenId = response.rows[0].token_id;
-    const newToken = await Token.getOneById(tokenId);
-    return newToken;
+    return "token is added";
   }
 
   //get token details from token id
