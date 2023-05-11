@@ -3,7 +3,6 @@ const jwt = require("jsonwebtoken");
 require("dotenv").config();
 
 const handleRefreshToken = async (req, res) => {
-  console.log("in handling refrehs tokens");
   const cookies = req.cookies;
   if (!cookies?.jwt) return res.sendStatus(401);
   const refreshToken = cookies.jwt;
