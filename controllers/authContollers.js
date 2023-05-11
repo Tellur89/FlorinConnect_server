@@ -5,14 +5,13 @@ require("dotenv").config();
 
 const handleLogin = async (req, res) => {
   const { username, password } = req.body;
-
   const findUser = await User.verifyLogin(req.body);
   const userID = await User.getOneByUsername(username);
   if (findUser) {
     const accessToken = jwt.sign(
       { username: findUser.username },
       process.env.JWT_SECRET,
-      { expiresIn: "1d" }
+      { expiresIn: "30s" }
     );
     const refreshToken = jwt.sign(
       { username: findUser.username },
@@ -21,20 +20,18 @@ const handleLogin = async (req, res) => {
     );
 
     //save refresh tokens
-
-    const insertRefreshToken = await Token.create(
-      userID[("user_id", refreshToken)]
-    );
+    const insertRefreshToken = await Token.create(userID.id, refreshToken);
     if (insertRefreshToken) {
       console.log("inserted refresh token");
     }
     res.cookie("jwt", refreshToken, {
       httpOnly: true,
       sameSite: "None",
-      secure: true,
+      secure: false,
       maxAge: 24 * 60 * 60 * 1000,
     });
-    res.json({ accessToken });
+    //store in memory
+    res.json({ accessToken: accessToken });
   } else {
     res.sendStatus(401);
   }

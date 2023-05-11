@@ -1,9 +1,12 @@
 const { Router } = require("express");
 const userController = require("../controllers/usersController");
-
+const verifyJWT = require("../middleware/authenticator");
 const userRouter = Router();
 
-userRouter.route("/").get(userController.index).post(userController.createUser);
+userRouter
+  .route("/")
+  .get(verifyJWT, userController.index)
+  .post(userController.createUser);
 userRouter.route("/admin").get(userController.showAdmin);
 userRouter.route("/login").post(userController.verifyLogin);
 

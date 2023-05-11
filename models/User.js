@@ -52,14 +52,19 @@ class User {
 		return newUser;
 	}
 
-	static async verifyLogin(data) {
-		const { username, password } = data;
-		const response = await db.query('SELECT * FROM users WHERE username = $1 AND password = $2;', [username, password]);
-		if (response.rows.length < 1) {
-			throw new Error('Unable to find the user');
-		}
-		return new User(response.rows[0]);
-	}
+
+  static async verifyLogin(data) {
+    const { username, password } = data;
+    const response = await db.query(
+      "SELECT * FROM users WHERE username = $1 AND password = $2;",
+      [username, password]
+    );
+    // console.log(data);
+    if (response.rows.length < 1) {
+      throw new Error("Unable to find the user");
+    }
+    return new User(response.rows[0]);
+  }
 
 	async update(data) {
 		// const { admin } = data;
