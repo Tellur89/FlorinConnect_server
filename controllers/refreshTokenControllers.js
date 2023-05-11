@@ -9,7 +9,7 @@ const handleRefreshToken = async (req, res) => {
   const findUserToken = await Token.getOneByToken(refreshToken);
   const findUser = await Token.getUsername(findUserToken.user_id);
   if (findUserToken == undefined) return res.sendStatus(403);
-  if (!findUser == undefined) return res.sendStatus(403);
+  if (findUser == undefined) return res.sendStatus(403);
 
   jwt.verify(refreshToken, process.env.JWT_REFRESH_SECRET, (err, data) => {
     if (err || findUser.username !== data.username) return res.sendStatus(403);

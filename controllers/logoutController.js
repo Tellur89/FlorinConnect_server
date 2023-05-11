@@ -1,6 +1,5 @@
 //copy refresh token controller and modify it
 const Token = require("../models/Token");
-const jwt = require("jsonwebtoken");
 require("dotenv").config();
 
 const handleLogout = async (req, res) => {
@@ -9,16 +8,23 @@ const handleLogout = async (req, res) => {
   const refreshToken = cookies.jwt;
   const findUserToken = await Token.getOneByToken(refreshToken);
   const findUser = await Token.getUsername(findUserToken.user_id);
-  if (findUserToken == undefined) return res.sendStatus(403);
-  if (!findUser == undefined) return res.sendStatus(403);
+  if (findUserToken == undefined) {
+    res.clearCookie("jwt", { httpOnly: true, sameSite: "None", secure: false });
+    return res.sendStatus(204);
+  }
+  if (findUser == undefined) {
+    res.clearCookie("jwt", { httpOnly: true, sameSite: "None", secure: false });
+    return res.sendStatus(204);
+  }
 
-  jwt.verify(refreshToken, process.env.JWT_REFRESH_SECRET, (err, data) => {
-    if (err || findUser.username !== data.username) return res.sendStatus(403);
-    const accessToken = jwt.sign(findUser, process.env.JWT_SECRET, {
-      expiresIn: "30s",
-    });
-    res.json(accessToken);
-  });
+  //delete refresh token in db
+
+  const deleteToken = await Token.delete(refreshToken);
+  if (deleteToken) {
+    console.log("token deleted");
+  }
+  res.clearCookie("jwt", { httpOnly: true, sameSite: "None", secure: false });
+  res.sendStatus(204);
 };
 
 module.exports = { handleLogout };
