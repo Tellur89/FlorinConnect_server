@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "test --coverage",
+    "test": "jest --coverage",
     "dev": "nodemon -L index.js",
     "setup-db": "node ./database/setup.js"
   },

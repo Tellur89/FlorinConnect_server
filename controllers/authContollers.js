@@ -4,6 +4,8 @@ const jwt = require("jsonwebtoken");
 require("dotenv").config();
 
 const handleLogin = async (req, res) => {
+  console.log("starting req:");
+  console.log(req);
   const { username, password } = req.body;
   const findUser = await User.verifyLogin(req.body);
   const userID = await User.getOneByUsername(username);
