@@ -6,7 +6,7 @@ DROP TABLE IF EXISTS tokens CASCADE;
 CREATE TABLE users (
   user_id INT GENERATED ALWAYS AS IDENTITY,
   username VARCHAR(50) UNIQUE NOT NULL,
-  password CHAR(50) NOT NULL,
+  password CHAR(200) NOT NULL,
   admin BOOLEAN DEFAULT false,
   points INT DEFAULT 0,
   PRIMARY KEY (user_id)
@@ -59,5 +59,5 @@ CREATE TABLE tokens (
   user_id INT NOT NULL,
   token CHAR(255) UNIQUE NOT NULL,
   PRIMARY KEY (token_id),
-  FOREIGN KEY (user_id) REFERENCES users(user_id)
+  FOREIGN KEY (user_id) REFERENCES users("user_id")
 );
