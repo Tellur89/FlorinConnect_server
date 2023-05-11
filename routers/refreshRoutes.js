@@ -4,6 +4,6 @@ const refreshRouters = Router();
 
 //complete this in a bit
 
-refreshRouters.route("/").get(refreshTokenController.handleRefreshToken);
+refreshRouters.get("/", refreshTokenController.handleRefreshToken);
 
 module.exports = refreshRouters;
