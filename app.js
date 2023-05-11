@@ -1,12 +1,6 @@
 const express = require('express');
 const cors = require('cors');
 // const cookieParser = require('cookie-parser');
-const multer = require('multer');
-const upload = multer({ dest: 'uploads/' });
-const { s3, Bucket, bucketName } = require('./aws/aws');
-const { S3Client, PutObjectCommand } = require('@aws-sdk/client-s3');
-
-const db = require('./database/db');
 
 // const verifyJWT = require('./middleware/authenticator');
 const postRouters = require('./routers/postsRoutes');
