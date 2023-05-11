@@ -45,5 +45,7 @@ app.get('/', (req, res) => {
 // anything below this will need authorization
 
 // app.use(verifyJWT);
+app.use('/posts', postRouters);
+app.use('/users', userRoutes);
 
 module.exports = app;
