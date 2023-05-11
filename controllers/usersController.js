@@ -48,7 +48,7 @@ async function createUser(req, res) {
 		data['password'] = await bcrypt.hash(data['password'], salt);
 
 		const user = await User.create(data);
-		console.log(user);
+
 		res.status(201).json(user);
 	} catch (error) {
 		res.status(400).json({ error: error.message });
@@ -71,11 +71,14 @@ async function verifyLogin(req, res) {
 		const data = req.body;
 		const user = await User.getOneByUsername(data.username);
 		const authenticated = await bcrypt.compare(data.password, user['password']);
+		console.log(user);
+		console.log(user.id);
+		console.log(authenticated);
 		if (!authenticated) {
 			throw new Error('Incorrect credentials.');
 		} else {
-			const token = await Token.create(user['id']);
-
+			const token = await Token.create(user.id);
+			console.log(token);
 			res.status(200).json({ authenticated: true, token: token.token });
 		}
 	} catch (error) {
@@ -87,7 +90,7 @@ async function destroyUser(req, res) {
 	try {
 		const username = req.params.username;
 		const user = await User.getOneByUsername(username);
-		console.log(user);
+
 		const result = await user.destroy();
 		res.status(204).json(result);
 	} catch (error) {
