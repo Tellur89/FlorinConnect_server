@@ -1,7 +1,10 @@
+
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
 
+
 const verifyJWT = (req, res, next) => {
+
   const authHeader = req.headers["authorization"];
   if (!authHeader) return res.sendStatus(401);
   const token = authHeader.split(" ")[1]; //get token
@@ -10,6 +13,7 @@ const verifyJWT = (req, res, next) => {
     req.user = decoded.username;
     next();
   });
+
 };
 
 module.exports = verifyJWT;
