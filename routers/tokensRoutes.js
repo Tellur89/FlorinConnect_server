@@ -1,10 +1,10 @@
-const { Router } = require("express");
-const tokenController = require("../controllers/tokenContollers");
+// const { Router } = require("express");
+// const tokenController = require("../controllers/tokenContollers");
 
-const tokenRouter = Router();
+// const tokenRouter = Router();
 
-tokenRouter.route("/").get(tokenController.index);
+// tokenRouter.route("/").get(tokenController.index);
 
-tokenRouter.route("/").post(tokenController.create);
+// tokenRouter.route("/").post(tokenController.create);
 
-module.exports = tokenRouter;
+// module.exports = tokenRouter;
