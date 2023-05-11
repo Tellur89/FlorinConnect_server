@@ -92,11 +92,8 @@ class Token {
     const response = await db.query("DELETE FROM tokens WHERE token = $1", [
       token,
     ]);
-    if (response.rows.length != 1) {
-      throw new Error("Unable to locate Token.");
-    } else {
-      return new Token(response.rows[0]);
-    }
+
+    return "row deleted";
   }
 
   static async verifyLogin(data) {
