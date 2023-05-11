@@ -15,7 +15,7 @@ class Post {
 	}
 
 	static async getAll() {
-		const response = await db.query('SELECT * FROM posts ORDER BY date_created;');
+		const response = await db.query('SELECT * FROM posts ORDER BY date_created DESC;');
 		if (response.rows.length === 0) {
 			throw new Error('No posts available.');
 		}
@@ -58,7 +58,7 @@ class Post {
 
 	//Show by keyword
 	static async showByWord(word) {
-		const response = await db.query('SELECT * FROM posts WHERE content LIKE $1 OR title like $1;', ['%' + word + '%']);
+		const response = await db.query('SELECT * FROM posts WHERE LOWER (content) LIKE $1 OR LOWER (title) LIKE $1;', ['%' + word + '%']);
 		if (response.rows.length === 0) {
 			throw new Error('No posts found by the given word');
 		}
@@ -118,7 +118,7 @@ class Post {
 			[data.title, data.content, data.category, data.open, data.completed, data.accepted, data.accepted_by_id, data.id]
 		);
 		if (response.rowCount != 1) {
-			throw new Error('Unable to update votes.');
+			throw new Error('Unable to update post.');
 		}
 		return new Post(response.rows[0]);
 	}
@@ -129,6 +129,28 @@ class Post {
 			throw new Error('Unable to delete post.');
 		}
 		return new Post(response.rows[0]);
+	}
+
+	static async updateStatus(id) {
+		const newPost = await Post.getOneById(id);
+		
+		if (newPost.open === true){
+			const response = await db.query(
+				'UPDATE posts SET open = FALSE, accepted = TRUE WHERE post_id = $1 RETURNING *',
+				[newPost.id]
+			);
+		} else if (newPost.accepted === true) {
+			const response = await db.query(
+				'UPDATE posts SET accepted = FALSE, completed = TRUE WHERE post_id = $1 RETURNING *',
+				[newPost.id]
+			);
+		}
+		
+		if (response.rowCount != 1) {
+			throw new Error('Unable to change post.');
+		}
+		
+		return newPost;
 	}
 }
 
