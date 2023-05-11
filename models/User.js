@@ -68,7 +68,7 @@ class User {
     );
     // console.log(data);
     if (response.rows.length < 1) {
-      throw new Error("Unable to find the user");
+      return undefined;
     }
     return new User(response.rows[0]);
   }
