@@ -14,7 +14,6 @@ async function create(req, res) {
   try {
     const data = req.body;
     const userID = data["username"];
-    console.log(userID);
     const token = await Token.create(userID);
     res.status(201).json(token);
   } catch (error) {

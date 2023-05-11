@@ -16,7 +16,7 @@ app.use(cookieParser());
 
 app.use("/tokens", tokenRoutes);
 app.use("/refresh", refreshRoutes);
-app.use("/users", userRoutes);
+
 app.use("/auth", authRoutes);
 app.get("/", (req, res) => {
   res.cookie("cookieName", "cookieValue", {
@@ -26,9 +26,9 @@ app.get("/", (req, res) => {
   });
   res.json("Florin Connect Api");
 });
-//anything below this will need authorization
-// app.use(verifyJWT);
+// anything below this will need authorization
+app.use(verifyJWT);
 
 app.use("/posts", postRouters);
-
+app.use("/users", userRoutes);
 module.exports = app;
