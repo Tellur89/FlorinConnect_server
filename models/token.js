@@ -47,9 +47,7 @@ class Token {
       "INSERT INTO tokens (user_id, token) VALUES ($1,$2)",
       [user_id, token]
     );
-    const tokenId = response.rows[0].token_id;
-    const newToken = await Token.getOneById(tokenId);
-    return newToken;
+    return "token is added";
   }
 
   //get token details from token id
@@ -82,7 +80,8 @@ class Token {
       "SELECT users.username FROM tokens INNER JOIN users ON tokens.user_id = users.user_id where tokens.user_id = $1",
       [id]
     );
-    if (response.rows.length != 1) {
+
+    if (!response.rows[0]) {
       throw new Error("Unable to locate Token.");
     }
     return response.rows[0];
@@ -93,11 +92,8 @@ class Token {
     const response = await db.query("DELETE FROM tokens WHERE token = $1", [
       token,
     ]);
-    if (response.rows.length != 1) {
-      throw new Error("Unable to locate Token.");
-    } else {
-      return new Token(response.rows[0]);
-    }
+
+    return "row deleted";
   }
 
   static async verifyLogin(data) {

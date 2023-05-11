@@ -99,12 +99,14 @@ class Post {
 		const now = new Date();
 		const options = { timeZone: 'Europe/London' };
 		const date_created = now.toLocaleDateString('en-GB', options);
+		const image_url = data.image_url;
 
-		const response = await db.query('INSERT INTO posts (title, content, category, date_created) VALUES ($1,$2,$3,$4) RETURNING *;', [
+		const response = await db.query('INSERT INTO posts (title, content, category, date_created, image_url) VALUES ($1,$2,$3,$4,$5) RETURNING *;', [
 			title,
 			content,
 			category,
 			date_created,
+			image_url,
 		]);
 
 		const postId = response.rows[0].post_id;
@@ -133,23 +135,17 @@ class Post {
 
 	static async updateStatus(id) {
 		const newPost = await Post.getOneById(id);
-		
-		if (newPost.open === true){
-			const response = await db.query(
-				'UPDATE posts SET open = FALSE, accepted = TRUE WHERE post_id = $1 RETURNING *',
-				[newPost.id]
-			);
+
+		if (newPost.open === true) {
+			const response = await db.query('UPDATE posts SET open = FALSE, accepted = TRUE WHERE post_id = $1 RETURNING *', [newPost.id]);
 		} else if (newPost.accepted === true) {
-			const response = await db.query(
-				'UPDATE posts SET accepted = FALSE, completed = TRUE WHERE post_id = $1 RETURNING *',
-				[newPost.id]
-			);
+			const response = await db.query('UPDATE posts SET accepted = FALSE, completed = TRUE WHERE post_id = $1 RETURNING *', [newPost.id]);
 		}
-		
+
 		if (response.rowCount != 1) {
 			throw new Error('Unable to change post.');
 		}
-		
+
 		return newPost;
 	}
 }
