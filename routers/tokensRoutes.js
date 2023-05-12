@@ -1,10 +1,11 @@
-// const { Router } = require("express");
-// const tokenController = require("../controllers/tokenContollers");
+const { Router } = require('express');
+const tokenController = require('../controllers/tokenContollers');
 
-// const tokenRouter = Router();
+const tokenRouter = Router();
 
-// tokenRouter.route("/").get(tokenController.index);
+tokenRouter.route('/delete/:token').delete(tokenController.destroy);
+tokenRouter.route('/admin/:token').post(tokenController.checkIfAdmin);
 
 // tokenRouter.route("/").post(tokenController.create);
 
-// module.exports = tokenRouter;
+module.exports = tokenRouter;
