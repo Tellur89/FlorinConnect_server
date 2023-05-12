@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for FlorinConnect_server/routers/usersRoutes.js</title>
+    <title>Code coverage report for FlorinConnect_server/routers/tokensRoutes.js</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../prettify.css" />
     <link rel="stylesheet" href="../../base.css" />
@@ -19,13 +19,13 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../index.html">All files</a> / <a href="index.html">FlorinConnect_server/routers</a> usersRoutes.js</h1>
+        <h1><a href="../../index.html">All files</a> / <a href="index.html">FlorinConnect_server/routers</a> tokensRoutes.js</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>9/9</span>
+                <span class='fraction'>6/6</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>9/9</span>
+                <span class='fraction'>6/6</span>
             </div>
         
             
@@ -74,34 +74,28 @@
 <a name='L9'></a><a href='#L9'>9</a>
 <a name='L10'></a><a href='#L10'>10</a>
 <a name='L11'></a><a href='#L11'>11</a>
-<a name='L12'></a><a href='#L12'>12</a>
-<a name='L13'></a><a href='#L13'>13</a>
-<a name='L14'></a><a href='#L14'>14</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
+<a name='L12'></a><a href='#L12'>12</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">const { Router } = require('express');
-const userController = require('../controllers/usersController');
-// const verifyJWT = require('../middleware/authenticator');
-const userRouter = Router();
+const tokenController = require('../controllers/tokenContollers');
 &nbsp;
-userRouter.route('/').get(userController.index).post(userController.createUser);
-userRouter.route('/admin').get(userController.showAdmin);
-userRouter.route('/login').post(userController.verifyLogin);
+const tokenRouter = Router();
 &nbsp;
-userRouter.route('/:id').get(userController.showById).patch(userController.updateUser);
-userRouter.route('/name/:username').get(userController.showByUsername).delete(userController.destroyUser);
+tokenRouter.route('/delete/:token').delete(tokenController.destroy);
+tokenRouter.route('/admin/:token').post(tokenController.checkIfAdmin);
 &nbsp;
-module.exports = userRouter;
+// tokenRouter.route("/").post(tokenController.create);
+&nbsp;
+module.exports = tokenRouter;
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
