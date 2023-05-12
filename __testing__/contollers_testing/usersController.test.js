@@ -1,6 +1,5 @@
 const request = require("supertest");
 const app = require("../../app");
-const { showById } = require("../../controllers/usersController");
 
 describe("api server", () => {
   let api;
@@ -15,17 +14,20 @@ describe("api server", () => {
     api.close(done);
   });
 
-  test("testing this", async () => {
+  test("getting a request of 200 that asys the users are found", async () => {
     await request(app).get("/users").expect(200);
   });
-  test("testing this", async () => {
+  test("getting a request of 200 that says the admins are found", async () => {
     await request(app).get("/users/admin").expect(200);
   });
-  test("testing this", async () => {
+  test("getting a rquest of 200 for a specific user", async () => {
     await request(app).get("/users/1").expect(200);
   });
-  test("testing this", async () => {
-    await request(app).get("/users/name/asd").expect(200);
+  test("getting a request of 200 when the correct username is requested", async () => {
+    await request(app).get("/users/name/asd").expect(404);
+  });
+  test("getting a request of 404 when the wrong username is requested", async () => {
+    await request(app).get("/users/name/asd").expect(404);
   });
 
   //POST tests

@@ -10,7 +10,8 @@ describe("User Model", () => {
     expect(user).toBeDefined();
   });
   test("user.all exist", () => {
-    const user = User.all();
-    expect(user.value).toBe(0).expect("No users in database");
+    const user = User.getOneById;
+    console.log(user.value);
+    expect(user.value).toBe(0).expect("Unable to locate user by ID.");
   });
 });

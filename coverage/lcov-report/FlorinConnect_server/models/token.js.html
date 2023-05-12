@@ -221,16 +221,7 @@
 <a name='L156'></a><a href='#L156'>156</a>
 <a name='L157'></a><a href='#L157'>157</a>
 <a name='L158'></a><a href='#L158'>158</a>
-<a name='L159'></a><a href='#L159'>159</a>
-<a name='L160'></a><a href='#L160'>160</a>
-<a name='L161'></a><a href='#L161'>161</a>
-<a name='L162'></a><a href='#L162'>162</a>
-<a name='L163'></a><a href='#L163'>163</a>
-<a name='L164'></a><a href='#L164'>164</a>
-<a name='L165'></a><a href='#L165'>165</a>
-<a name='L166'></a><a href='#L166'>166</a>
-<a name='L167'></a><a href='#L167'>167</a>
-<a name='L168'></a><a href='#L168'>168</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">4x</span>
+<a name='L159'></a><a href='#L159'>159</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -244,9 +235,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -254,8 +242,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -265,8 +251,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -276,8 +260,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -397,55 +379,46 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">const { v4: uuidv4 } = require("uuid");
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">const { v4: uuidv4 } = require('uuid');
 &nbsp;
-const db = require("../database/db");
+const db = require('../database/db');
 &nbsp;
 class Token {
-<span class="fstat-no" title="function not covered" >  co</span>nstructor({ token_id, user_id, token }) {
-<span class="cstat-no" title="statement not covered" >    this.token_id = token_id;</span>
-<span class="cstat-no" title="statement not covered" >    this.user_id = user_id;</span>
-<span class="cstat-no" title="statement not covered" >    this.token = token;</span>
-  }
+<span class="fstat-no" title="function not covered" >	co</span>nstructor({ token_id, user_id, token }) {
+<span class="cstat-no" title="statement not covered" >		this.token_id = token_id;</span>
+<span class="cstat-no" title="statement not covered" >		this.user_id = user_id;</span>
+<span class="cstat-no" title="statement not covered" >		this.token = token;</span>
+	}
 &nbsp;
-<span class="fstat-no" title="function not covered" >  st</span>atic async create(user_id) {
-    const token = <span class="cstat-no" title="statement not covered" >uuidv4();</span>
-    const response = <span class="cstat-no" title="statement not covered" >await db.query(</span>
-      "INSERT INTO token (user_id, token) VALUES ($1, $2) RETURNING token_id;",
-      [user_id, token]
-    );
-    const newId = <span class="cstat-no" title="statement not covered" >response.rows[0].token_id;</span>
-    const newToken = <span class="cstat-no" title="statement not covered" >await Token.getOneById(newId);</span>
-<span class="cstat-no" title="statement not covered" >    return newToken;</span>
-  }
+<span class="fstat-no" title="function not covered" >	st</span>atic async create(user_id) {
+		const token = <span class="cstat-no" title="statement not covered" >uuidv4();</span>
+		const response = <span class="cstat-no" title="statement not covered" >await db.query('INSERT INTO tokens (user_id, token) VALUES ($1, $2) RETURNING token_id;', [user_id, token]);</span>
+		const newId = <span class="cstat-no" title="statement not covered" >response.rows[0].token_id;</span>
+		const newToken = <span class="cstat-no" title="statement not covered" >await Token.getOneById(newId);</span>
+<span class="cstat-no" title="statement not covered" >		return newToken;</span>
+	}
 &nbsp;
-<span class="fstat-no" title="function not covered" >  st</span>atic async getOneById(id) {
-    const response = <span class="cstat-no" title="statement not covered" >await db.query("SELECT * FROM token WHERE token_id = $1", [</span>
-      id,
-    ]);
-<span class="cstat-no" title="statement not covered" >    if (response.rows.length != 1) {</span>
-<span class="cstat-no" title="statement not covered" >      throw new Error("Unable to locate token.");</span>
-    } else {
-<span class="cstat-no" title="statement not covered" >      return new Token(response.rows[0]);</span>
-    }
-  }
+<span class="fstat-no" title="function not covered" >	st</span>atic async getOneById(id) {
+		const response = <span class="cstat-no" title="statement not covered" >await db.query('SELECT * FROM tokens WHERE token_id = $1', [id]);</span>
+<span class="cstat-no" title="statement not covered" >		if (response.rows.length != 1) {</span>
+<span class="cstat-no" title="statement not covered" >			throw new Error('Unable to locate token.');</span>
+		} else {
+<span class="cstat-no" title="statement not covered" >			return new Token(response.rows[0]);</span>
+		}
+	}
 &nbsp;
-<span class="fstat-no" title="function not covered" >  st</span>atic async getOneByToken(token) {
-    const response = <span class="cstat-no" title="statement not covered" >await db.query("SELECT * FROM token WHERE token = $1", [</span>
-      token,
-    ]);
-<span class="cstat-no" title="statement not covered" >    if (response.rows.length != 1) {</span>
-<span class="cstat-no" title="statement not covered" >      throw new Error("Unable to locate token.");</span>
-    } else {
-<span class="cstat-no" title="statement not covered" >      return new Token(response.rows[0]);</span>
-    }
-  }
+<span class="fstat-no" title="function not covered" >	st</span>atic async getOneByToken(token) {
+		const response = <span class="cstat-no" title="statement not covered" >await db.query('SELECT * FROM tokens WHERE token = $1', [token]);</span>
+<span class="cstat-no" title="statement not covered" >		if (response.rows.length != 1) {</span>
+<span class="cstat-no" title="statement not covered" >			throw new Error('Unable to locate token.');</span>
+		} else {
+<span class="cstat-no" title="statement not covered" >			return new Token(response.rows[0]);</span>
+		}
+	}
 &nbsp;
-<span class="fstat-no" title="function not covered" >  st</span>atic async deleteToken(token) {
-    const response = <span class="cstat-no" title="statement not covered" >await db.query("DELETE FROM token WHERE token = $1", [</span>
-      token,
-    ]);
-  }
+<span class="fstat-no" title="function not covered" >	st</span>atic async deleteToken(token) {
+		const response = <span class="cstat-no" title="statement not covered" >await db.query('DELETE FROM tokens WHERE token = $1', [token]);</span>
+	}
 }
 &nbsp;
 /*
@@ -571,7 +544,7 @@ module.exports = Token;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-05-12T08:05:09.660Z
+                at 2023-05-12T10:20:18.660Z
             </div>
         <script src="../../prettify.js"></script>
         <script>
