@@ -47,12 +47,13 @@ async function createUser(req, res) {
     const salt = await bcrypt.genSalt(parseInt(process.env.BCRYPT_SALT_ROUNDS));
     data["password"] = await bcrypt.hash(data["password"], salt);
 
-    const user = await User.create(data);
-    console.log(user);
-    res.status(201).json(user);
-  } catch (error) {
-    res.status(400).json({ error: error.message });
-  }
+
+		const user = await User.create(data);
+
+		res.status(201).json(user);
+	} catch (error) {
+		res.status(400).json({ error: error.message });
+	}
 }
 
 async function updateUser(req, res) {
@@ -67,32 +68,37 @@ async function updateUser(req, res) {
   }
 }
 async function verifyLogin(req, res) {
-  try {
-    const data = req.body;
-    const user = await User.getOneByUsername(data.username);
-    const authenticated = await bcrypt.compare(data.password, user["password"]);
-    if (!authenticated) {
-      throw new Error("Incorrect credentials.");
-    } else {
-      const token = await Token.create(user["id"]);
 
-      res.status(200).json({ authenticated: true, token: token.token });
-    }
-  } catch (error) {
-    res.status(404).json({ error: error.message });
-  }
+	try {
+		const data = req.body;
+		const user = await User.getOneByUsername(data.username);
+		const authenticated = await bcrypt.compare(data.password, user['password']);
+		console.log(user);
+		console.log(user.id);
+		console.log(authenticated);
+		if (!authenticated) {
+			throw new Error('Incorrect credentials.');
+		} else {
+			const token = await Token.create(user.id);
+			console.log(token);
+			res.status(200).json({ authenticated: true, token: token.token });
+		}
+	} catch (error) {
+		res.status(404).json({ error: error.message });
+	}
 }
 
 async function destroyUser(req, res) {
-  try {
-    const username = req.params.username;
-    const user = await User.getOneByUsername(username);
-    console.log(user);
-    const result = await user.destroy();
-    res.status(204).json(result);
-  } catch (error) {
-    res.status(404).json({ error: error.message });
-  }
+	try {
+		const username = req.params.username;
+		const user = await User.getOneByUsername(username);
+
+		const result = await user.destroy();
+		res.status(204).json(result);
+	} catch (error) {
+		res.status(404).json({ error: error.message });
+	}
+
 }
 
 module.exports = {

@@ -1,12 +1,12 @@
 DROP TABLE IF EXISTS posts CASCADE;
-DROP TABLE IF EXISTS users CASCADE;
 DROP TABLE IF EXISTS tokens CASCADE;
+DROP TABLE IF EXISTS users CASCADE;
 
 
 CREATE TABLE users (
   user_id INT GENERATED ALWAYS AS IDENTITY,
   username VARCHAR(50) UNIQUE NOT NULL,
-  password CHAR(200) NOT NULL,
+  password CHAR(60) NOT NULL,
   admin BOOLEAN DEFAULT false,
   points INT DEFAULT 0,
   PRIMARY KEY (user_id)
@@ -57,7 +57,7 @@ INSERT INTO posts (title, content, category, date_created, image_url) VALUES ('L
 CREATE TABLE tokens (
   token_id INT GENERATED ALWAYS AS IDENTITY,
   user_id INT NOT NULL,
-  token CHAR(255) UNIQUE NOT NULL,
+  token CHAR(36) UNIQUE NOT NULL,
   PRIMARY KEY (token_id),
   FOREIGN KEY (user_id) REFERENCES users("user_id")
 );
