@@ -3,9 +3,9 @@ require("dotenv").config();
 const User = require("../models/User");
 const Token = require("../models/token");
 
-function index(req, res) {
+async function index(req, res) {
   try {
-    const user = User.getAll;
+    const user = await User.getAll();
     res.status(200).json(user);
   } catch (error) {
     res.status(500).json({ error: error.message });
