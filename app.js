@@ -21,10 +21,10 @@ const app = express();
 // 	preflightContinue: false,
 // 	optionsSuccessStatus: 204,
 // };
-app.use(cors());
 app.use(express.json());
-app.use('/users', userRoutes);
-app.use('/posts', postRouters);
+
+app.use(cors());
+
 // app.use(express.urlencoded({ extended: false }));
 
 // app.use(cookieParser());
