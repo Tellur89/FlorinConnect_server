@@ -22,14 +22,11 @@ const app = express();
 // 	optionsSuccessStatus: 204,
 // };
 app.use(express.json());
+app.use(cors());
 
 app.use('/users', userRoutes);
 app.use('/posts', postRouters);
 app.use('/tokens', tokenRoutes);
-
-
-app.use(cors());
-
 
 // app.use(express.urlencoded({ extended: false }));
 
@@ -48,6 +45,5 @@ app.get('/', (req, res) => {
 });
 
 // anything below this will need authorization
-
 
 module.exports = app;
