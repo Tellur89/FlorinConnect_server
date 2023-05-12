@@ -5,7 +5,7 @@ const cors = require('cors');
 
 const postRouters = require('./routers/postsRoutes');
 const userRoutes = require('./routers/usersRoutes');
-// const tokenRoutes = require('./routers/tokensRoutes');
+const tokenRoutes = require('./routers/tokensRoutes');
 // const refreshRoutes = require('./routers/refreshRoutes');
 // const authRoutes = require('./routers/authRoutes');
 
@@ -23,13 +23,18 @@ const app = express();
 // };
 app.use(express.json());
 
+app.use('/users', userRoutes);
+app.use('/posts', postRouters);
+app.use('/tokens', tokenRoutes);
+
+
 app.use(cors());
+
 
 // app.use(express.urlencoded({ extended: false }));
 
 // app.use(cookieParser());
 
-// app.use('/tokens', tokenRoutes);
 // app.use('/refresh', refreshRoutes);
 
 // app.use('/auth', authRoutes);
@@ -44,8 +49,5 @@ app.get('/', (req, res) => {
 
 // anything below this will need authorization
 
-// app.use(verifyJWT);
-app.use('/posts', postRouters);
-app.use('/users', userRoutes);
 
 module.exports = app;
