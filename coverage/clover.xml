@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1683841881859" clover="3.2.0">
-  <project timestamp="1683841881859" name="All files">
-    <metrics statements="295" coveredstatements="45" conditionals="62" coveredconditionals="0" methods="59" coveredmethods="0" elements="416" coveredelements="45" complexity="0" loc="295" ncloc="295" packages="5" files="9" classes="9"/>
+<coverage generated="1683849512082" clover="3.2.0">
+  <project timestamp="1683849512082" name="All files">
+    <metrics statements="295" coveredstatements="49" conditionals="62" coveredconditionals="0" methods="59" coveredmethods="2" elements="416" coveredelements="51" complexity="0" loc="295" ncloc="295" packages="5" files="9" classes="9"/>
     <package name="FlorinConnect_server">
       <metrics statements="13" coveredstatements="11" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
       <file name="app.js" path="C:\Users\ajaya\Documents\LaFosse\Lap2\FlorinConnect\Back-End\FlorinConnect_server\app.js">
@@ -22,7 +22,7 @@
       </file>
     </package>
     <package name="FlorinConnect_server.controllers">
-      <metrics statements="127" coveredstatements="7" conditionals="16" coveredconditionals="0" methods="21" coveredmethods="0"/>
+      <metrics statements="127" coveredstatements="10" conditionals="16" coveredconditionals="0" methods="21" coveredmethods="1"/>
       <file name="postsControllers.js" path="C:\Users\ajaya\Documents\LaFosse\Lap2\FlorinConnect\Back-End\FlorinConnect_server\controllers\postsControllers.js">
         <metrics statements="73" coveredstatements="2" conditionals="14" coveredconditionals="0" methods="13" coveredmethods="0"/>
         <line num="1" count="1" type="stmt"/>
@@ -100,15 +100,15 @@
         <line num="153" count="1" type="stmt"/>
       </file>
       <file name="usersController.js" path="C:\Users\ajaya\Documents\LaFosse\Lap2\FlorinConnect\Back-End\FlorinConnect_server\controllers\usersController.js">
-        <metrics statements="54" coveredstatements="5" conditionals="2" coveredconditionals="0" methods="8" coveredmethods="0"/>
+        <metrics statements="54" coveredstatements="8" conditionals="2" coveredconditionals="0" methods="8" coveredmethods="1"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
         <line num="3" count="1" type="stmt"/>
         <line num="4" count="1" type="stmt"/>
-        <line num="7" count="0" type="stmt"/>
-        <line num="8" count="0" type="stmt"/>
+        <line num="7" count="1" type="stmt"/>
+        <line num="8" count="1" type="stmt"/>
         <line num="9" count="0" type="stmt"/>
-        <line num="11" count="0" type="stmt"/>
+        <line num="11" count="1" type="stmt"/>
         <line num="16" count="0" type="stmt"/>
         <line num="17" count="0" type="stmt"/>
         <line num="18" count="0" type="stmt"/>
@@ -168,7 +168,7 @@
       </file>
     </package>
     <package name="FlorinConnect_server.models">
-      <metrics statements="135" coveredstatements="7" conditionals="46" coveredconditionals="0" methods="37" coveredmethods="0"/>
+      <metrics statements="135" coveredstatements="8" conditionals="46" coveredconditionals="0" methods="37" coveredmethods="1"/>
       <file name="Post.js" path="C:\Users\ajaya\Documents\LaFosse\Lap2\FlorinConnect\Back-End\FlorinConnect_server\models\Post.js">
         <metrics statements="75" coveredstatements="2" conditionals="28" coveredconditionals="0" methods="22" coveredmethods="0"/>
         <line num="1" count="1" type="stmt"/>
@@ -248,13 +248,13 @@
         <line num="153" count="1" type="stmt"/>
       </file>
       <file name="User.js" path="C:\Users\ajaya\Documents\LaFosse\Lap2\FlorinConnect\Back-End\FlorinConnect_server\models\User.js">
-        <metrics statements="40" coveredstatements="2" conditionals="14" coveredconditionals="0" methods="10" coveredmethods="0"/>
+        <metrics statements="40" coveredstatements="3" conditionals="14" coveredconditionals="0" methods="10" coveredmethods="1"/>
         <line num="1" count="1" type="stmt"/>
         <line num="5" count="0" type="stmt"/>
         <line num="6" count="0" type="stmt"/>
         <line num="7" count="0" type="stmt"/>
         <line num="8" count="0" type="stmt"/>
-        <line num="12" count="0" type="stmt"/>
+        <line num="12" count="1" type="stmt"/>
         <line num="13" count="0" type="cond" truecount="0" falsecount="2"/>
         <line num="14" count="0" type="stmt"/>
         <line num="16" count="0" type="stmt"/>

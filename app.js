@@ -21,8 +21,9 @@ const app = express();
 // 	preflightContinue: false,
 // 	optionsSuccessStatus: 204,
 // };
-app.use(cors());
 app.use(express.json());
+app.use(cors());
+
 // app.use(express.urlencoded({ extended: false }));
 
 // app.use(cookieParser());
