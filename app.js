@@ -21,11 +21,16 @@ const app = express();
 // 	preflightContinue: false,
 // 	optionsSuccessStatus: 204,
 // };
-app.use(cors());
 app.use(express.json());
+
 app.use('/users', userRoutes);
 app.use('/posts', postRouters);
 app.use('/tokens', tokenRoutes);
+
+
+app.use(cors());
+
+
 // app.use(express.urlencoded({ extended: false }));
 
 // app.use(cookieParser());
@@ -44,8 +49,5 @@ app.get('/', (req, res) => {
 
 // anything below this will need authorization
 
-// app.use(verifyJWT);
-app.use('/posts', postRouters);
-app.use('/users', userRoutes);
 
 module.exports = app;
