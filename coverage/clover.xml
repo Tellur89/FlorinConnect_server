@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1683885138195" clover="3.2.0">
-  <project timestamp="1683885138195" name="All files">
+<coverage generated="1683886818692" clover="3.2.0">
+  <project timestamp="1683886818692" name="All files">
     <metrics statements="323" coveredstatements="96" conditionals="64" coveredconditionals="0" methods="61" coveredmethods="14" elements="448" coveredelements="110" complexity="0" loc="323" ncloc="323" packages="5" files="11" classes="11"/>
     <package name="FlorinConnect_server">
       <metrics statements="15" coveredstatements="15" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
